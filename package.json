@@ -1,0 +1,13 @@
+{
+  "name": "fortnite-store-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:backend": "nodemon server/index.js",
+    "dev:frontend": "npm run dev --prefix client",
+    "sync": "node server/runSync.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
