@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-// Cria uma instância do axios com a URL base da nossa API backend
+// Em produção no Vercel, o frontend e o backend estarão no mesmo domínio.
+// Podemos usar uma URL relativa.
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5001/api', // A porta deve ser a mesma do seu backend
-} );
+  baseURL: '/api',
+});
 
 export default apiClient;
