@@ -1,34 +1,44 @@
+// Carrega as variáveis de ambiente do arquivo .env
 require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('../config/db');
 
-// Rotas
+// Importa as rotas
 const userRoutes = require('../routes/userRoutes');
 const cosmeticRoutes = require('../routes/cosmeticRoutes');
 
-// Conectar ao banco de dados
+// Executa a conexão com o banco de dados
 connectDB();
 
+// Cria a instância do aplicativo Express
 const app = express();
 
-// Middlewares
+// Aplica os middlewares
 app.use(cors());
 app.use(express.json());
 
-// Rota de teste principal
+// --- ROTAS ---
+
+// Rota principal para verificar se o servidor está no ar
 app.get('/', (req, res) => {
   res.send('<h1>API do Fortnite Store</h1><p>Backend está no ar no Render!</p>');
 });
 
-// Rotas da API
+// Rota para os usuários (ex: /users/register, /users/login)
 app.use('/users', userRoutes);
+
+// Rota para os cosméticos (ex: /cosmetics)
 app.use('/cosmetics', cosmeticRoutes);
 
-const PORT = process.env.PORT || 3000;
 
+// --- INICIALIZAÇÃO DO SERVIDOR ---
+
+// Define a porta. O Render fornecerá a porta através de process.env.PORT
+const PORT = process.env.PORT || 3001; // Usamos 3001 como padrão local
+
+// Inicia o servidor e o faz "ouvir" na porta definida
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Servidor rodando com sucesso na porta ${PORT}`);
 });
-
-module.exports = app; // Mantemos isso para compatibilidade, embora o Render não use
