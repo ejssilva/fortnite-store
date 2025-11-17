@@ -16,8 +16,17 @@ connectDB();
 const app = express();
 
 // Aplica os middlewares
-app.use(cors());
+// Aplica os middlewares
+
+// Configuração explícita do CORS para permitir requisições do nosso frontend
+const corsOptions = {
+  origin: 'https://fortnite-store-frontend.onrender.com',
+  optionsSuccessStatus: 200 // Necessário para alguns navegadores mais antigos
+};
+app.use(cors(corsOptions ));
+
 app.use(express.json());
+
 
 // --- ROTAS ---
 
