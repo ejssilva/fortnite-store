@@ -1,28 +1,34 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
-const connectDB = require('../config/db'); // O caminho mudou
+const connectDB = require('../config/db');
 
-dotenv.config();
+// Rotas
+const userRoutes = require('../routes/userRoutes');
+const cosmeticRoutes = require('../routes/cosmeticRoutes');
+
+// Conectar ao banco de dados
 connectDB();
 
 const app = express();
 
-// A configuração de CORS precisa ser mais permissiva em produção
-app.use(cors()); 
-
+// Middlewares
+app.use(cors());
 app.use(express.json());
 
-// Rotas da API (os caminhos mudaram)
-app.use('/users', require('../routes/userRoutes'));
-app.use('/cosmetics', require('../routes/cosmeticRoutes'));
-
-// Rota de teste para verificar se a API está no ar
-// ✅ CORRETO
+// Rota de teste principal
 app.get('/', (req, res) => {
-  res.send('<h1>API do Fortnite Store</h1><p>Backend está no ar no Vercel!</p>');
+  res.send('<h1>API do Fortnite Store</h1><p>Backend está no ar no Render!</p>');
 });
 
-// IMPORTANTE: Não chame app.listen()
-// Exporte o app para o Vercel usar
-module.exports = app;
+// Rotas da API
+app.use('/users', userRoutes);
+app.use('/cosmetics', cosmeticRoutes);
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
+
+module.exports = app; // Mantemos isso para compatibilidade, embora o Render não use
