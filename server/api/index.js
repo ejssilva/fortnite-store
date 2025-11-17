@@ -39,6 +39,7 @@ app.use('/cosmetics', cosmeticRoutes);
 const PORT = process.env.PORT || 3001; // Usamos 3001 como padrão local
 
 // Inicia o servidor e o faz "ouvir" na porta definida
+
 app.listen(PORT, () => {
   console.log(`Servidor rodando com sucesso na porta ${PORT}`);
 });
